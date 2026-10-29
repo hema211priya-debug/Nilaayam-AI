@@ -30,7 +30,7 @@ export default function RegistrationChecklist() {
   const [expandedInfo, setExpandedInfo] = useState({})
 
   // Storage key for local persistence
-  const storageKey = `nilaayam_chk_${transactionType}_${propertyType}`
+  const storageKey = `nilaayam_chk_v2_${transactionType}_${propertyType}`
 
   useEffect(() => {
     async function loadChecklist() {
@@ -44,7 +44,8 @@ export default function RegistrationChecklist() {
         }
 
         const data = await generateChecklist(propertyType, transactionType, language)
-        const initialItems = (data?.items && data.items.length > 0) ? data.items : demoChecklist
+        const rawItems = (data?.items && data.items.length > 0) ? data.items : demoChecklist
+const initialItems = rawItems.map((it, i) => ({ ...it, id: it.id ?? i, status: it.status || 'Pending' }))
         setItems(initialItems)
         localStorage.setItem(storageKey, JSON.stringify(initialItems))
       } catch (err) {
