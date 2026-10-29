@@ -50,7 +50,7 @@ const initialItems = rawItems.map((it, i) => ({ ...it, id: it.id ?? i, status: i
         localStorage.setItem(storageKey, JSON.stringify(initialItems))
       } catch (err) {
         console.warn('Failed loading checklist from API, using demo fallback:', err)
-        setItems(demoChecklist)
+        setItems(demoChecklist.map((it, i) => ({ ...it, id: it.id ?? i, status: it.status || 'Pending' })))
       } finally {
         setLoading(false)
       }
@@ -217,8 +217,8 @@ const initialItems = rawItems.map((it, i) => ({ ...it, id: it.id ?? i, status: i
           const isNeedsVerification = item.status === 'Needs Verification'
           const isExpanded = expandedInfo[item.id] || false
 
-          const title = language === 'ta' && item.name_ta ? item.name_ta : item.name
-          const whyNeeded = language === 'ta' && item.why_needed_ta ? item.why_needed_ta : item.why_needed
+          const title = (language === 'ta' && item.name_ta) ? item.name_ta : (item.name || item.title || item.document_name || item.document || item.label || '(unnamed document)')
+const whyNeeded = (language === 'ta' && item.why_needed_ta) ? item.why_needed_ta : (item.why_needed || item.reason || item.description || item.purpose || '')
 
           return (
             <div 
