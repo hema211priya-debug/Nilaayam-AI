@@ -63,7 +63,11 @@ export default function UploadPage() {
       return
     }
 
-    setIsRentalProcessing(true)
+   if (rentalFile.isDemo) {
+  navigate('/analysis/demo')
+  return
+}
+setIsRentalProcessing(true)
     setRentalProgress(15)
     setRentalStatusStage(t('Uploading document...', 'ஆவணம் பதிவேற்றப்படுகிறது...'))
 
@@ -109,7 +113,7 @@ export default function UploadPage() {
       const errorMessage = typeof detail === 'string'
         ? detail
         : detail?.message || err?.message
-      toast.error(errorMessage || t('Failed to analyze the uploaded document. Please check the file and try again.', 'பதிவேற்றிய ஆவணத்தை ஆய்வு செய்ய முடியவில்லை. கோப்பைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்.'))
+      toast.error((!err?.response ? t('Backend not reachable. This hosted preview has no server. Please click "Load Sample File" or run the app locally.', 'சேவையகம் இணைக்கப்படவில்லை. "மாதிரிக் கோப்பை ஏற்று" என்பதைப் பயன்படுத்தவும் அல்லது கணினியில் இயக்கவும்.') : errorMessage) ||
     } finally {
       setIsRentalProcessing(false)
     }
@@ -122,7 +126,11 @@ export default function UploadPage() {
       return
     }
 
-    setIsPropertyProcessing(true)
+    if ((pattaFile && pattaFile.isDemo) || (ecFile && ecFile.isDemo) || (saleDeedFile && saleDeedFile.isDemo)) {
+  navigate('/property/demo')
+  return
+}
+setIsPropertyProcessing(true)
     setPropertyProgress(25)
 
     try {
