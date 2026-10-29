@@ -178,15 +178,16 @@ export default function UploadPage() {
   const handleLoadDemoAgreement = () => {
     setRentalFile({
       name: 'Sample_Rental_Agreement_Chennai_2024.pdf',
-      size: 1.8 * 1024 * 1024
+      size: 1.8 * 1024 * 1024,
+isDemo: true
     })
     toast.success(t('Demo agreement file loaded.', 'மாதிரி ஒப்பந்தக் கோப்பு ஏற்றப்பட்டது.'))
   }
 
   const handleLoadDemoPropertyDocs = () => {
-    setPattaFile({ name: 'Computerised_Patta_TN_142_3B.pdf', size: 640 * 1024 })
-    setEcFile({ name: 'Encumbrance_Cert_TNREGINET.pdf', size: 1.2 * 1024 * 1024 })
-    setSaleDeedFile({ name: 'Parent_Sale_Deed_Doc_452.pdf', size: 3.5 * 1024 * 1024 })
+    setPattaFile({ name: 'Computerised_Patta_TN_142_3B.pdf', size: 640 * 1024, isDemo: true })
+setEcFile({ name: 'Encumbrance_Cert_TNREGINET.pdf', size: 1.2 * 1024 * 1024, isDemo: true })
+setSaleDeedFile({ name: 'Parent_Sale_Deed_Doc_452.pdf', size: 3.5 * 1024 * 1024, isDemo: true })
     toast.success(t('Demo property documents loaded.', 'மாதிரி சொத்து ஆவணங்கள் ஏற்றப்பட்டன.'))
   }
 
