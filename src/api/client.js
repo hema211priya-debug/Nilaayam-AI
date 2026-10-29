@@ -24,8 +24,11 @@ api.interceptors.request.use(
 // Response interceptor
 api.interceptors.response.use(
   (response) => response,
-  (error) => {
+    (error) => {
     console.warn('API call failed, operating in fallback / demo mode if available:', error?.message)
+    if (!error.response) {
+      error.message = 'Backend not reachable. This hosted preview has no server. Please use Demo Analysis / Demo Property, or run the app locally.'
+    }
     return Promise.reject(error)
   }
 )
